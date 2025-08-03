@@ -15,7 +15,6 @@ export const AppFooter = React.memo(() => {
         }}
       >
         {isExcalidrawPlusSignedUser ? (
-          <ExcalidrawPlusAppLink />
         ) : (
           <EncryptedIcon />
         )}

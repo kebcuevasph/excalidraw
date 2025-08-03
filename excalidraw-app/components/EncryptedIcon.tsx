@@ -11,8 +11,7 @@ export const EncryptedIcon = () => {
       href="https://blog.excalidraw.com/end-to-end-encryption/"
       target="_blank"
       rel="noopener noreferrer"
-      aria-label={t("encrypted.link")}
-    style="display:none !important;">
+      aria-label={t("encrypted.link")}>
       <Tooltip label={t("encrypted.tooltip")} long={true} style="display:none !important;">
         {shield}
       </Tooltip>

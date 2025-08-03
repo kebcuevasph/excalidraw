@@ -6,7 +6,7 @@ import { isExcalidrawPlusSignedUser } from "../app_constants";
 
 export const AppFooter = React.memo(() => {
   return (
-    <Footer style="display:none !important;">
+    <Footer>
       <div
         style={{
           display: "flex",

@@ -8,8 +8,7 @@ import { ExternalLinkIcon } from "./icons";
 import { probablySupportsClipboardBlob } from "../clipboard";
 import { isDarwin, isFirefox, isWindows } from "../constants";
 
-const Header = () => (
-);
+const Header = () => null;
 
 const Section = (props: { title: string; children: React.ReactNode }) => (
   <>

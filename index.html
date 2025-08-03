@@ -211,24 +211,21 @@
     <script>
       async function isMoodleLoggedIn() {
         try {
-          const response = await fetch('https://go.abtiq.com/webservice/rest/server.php', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: new URLSearchParams({
-              'wstoken': '',
-              'wsfunction': 'core_webservice_get_site_info',
-              'moodlewsrestformat': 'json'
-            })
+          // This endpoint generates a token if the user has an active session.
+          // The 'moodle_mobile_app' service is a standard Moodle service.
+          const response = await fetch('https://go.abtiq.com/login/token.php?service=moodle_mobile_app', {
+            method: 'GET',
+            credentials: 'include', // This is crucial to send session cookies.
           });
 
           if (response.ok) {
             const data = await response.json();
-            if (data && data.userid > 0) {
+            // If a token is returned, the user is logged in.
+            if (data && data.token) {
               return true;
             }
           }
+          // If the response is not ok or doesn't contain a token, the user is not logged in.
           return false;
         } catch (error) {
           console.error('Error checking Moodle login status:', error);

@@ -27,7 +27,7 @@ export const AppWelcomeScreen: React.FC<{
       <WelcomeScreen.Hints.ToolbarHint />
       <WelcomeScreen.Hints.HelpHint />
       <WelcomeScreen.Center>
-        <div style={{ fontSize: "1.5em", marginBottom: "1em" }}>Abtiq QLab</div>
+        <div style={{ fontFamily: "'Syncopate', sans-serif", fontSize: "3em", marginBottom: "1em", fontWeight: "bold" }}>Abtiq QLab</div>
         <WelcomeScreen.Center.Heading>
           {headingContent}
         </WelcomeScreen.Center.Heading>

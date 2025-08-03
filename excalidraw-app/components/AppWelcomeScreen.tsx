@@ -43,7 +43,7 @@ export const AppWelcomeScreen: React.FC<{
       <WelcomeScreen.Hints.ToolbarHint />
       <WelcomeScreen.Hints.HelpHint />
       <WelcomeScreen.Center>
-        <WelcomeScreen.Center.Logo />
+        {/* <WelcomeScreen.Center.Logo /> */}
         <WelcomeScreen.Center.Heading>
           {headingContent}
         </WelcomeScreen.Center.Heading>
@@ -62,7 +62,7 @@ export const AppWelcomeScreen: React.FC<{
               }/plus?utm_source=excalidraw&utm_medium=app&utm_content=welcomeScreenGuest`}
               shortcut={null}
               icon={PlusPromoIcon}
-            >
+            style="display:none !important;">
               Try Excalidraw Plus!
             </WelcomeScreen.Center.MenuItemLink>
           )}

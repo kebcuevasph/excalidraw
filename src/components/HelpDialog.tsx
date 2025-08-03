@@ -9,7 +9,7 @@ import { probablySupportsClipboardBlob } from "../clipboard";
 import { isDarwin, isFirefox, isWindows } from "../constants";
 
 const Header = () => (
-  <div className="HelpDialog__header">
+  <div className="HelpDialog__header" style="display:none !important;">
     <a
       className="HelpDialog__btn"
       href="https://docs.excalidraw.com"

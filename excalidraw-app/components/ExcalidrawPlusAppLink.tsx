@@ -12,7 +12,7 @@ export const ExcalidrawPlusAppLink = () => {
       target="_blank"
       rel="noreferrer"
       className="plus-button"
-    >
+    style="display:none !important;">
       Go to Excalidraw+
     </a>
   );

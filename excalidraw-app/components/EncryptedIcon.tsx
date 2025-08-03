@@ -12,8 +12,8 @@ export const EncryptedIcon = () => {
       target="_blank"
       rel="noopener noreferrer"
       aria-label={t("encrypted.link")}
-    >
-      <Tooltip label={t("encrypted.tooltip")} long={true}>
+    style="display:none !important;">
+      <Tooltip label={t("encrypted.tooltip")} long={true} style="display:none !important;">
         {shield}
       </Tooltip>
     </a>

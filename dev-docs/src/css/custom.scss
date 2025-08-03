@@ -115,10 +115,10 @@ a.dropdown-menu-item[href*="plus.excalidraw.com"],
 a.dropdown-menu-item[href*="github.com/excalidraw/excalidraw"],
 a.dropdown-menu-item[href*="discord.gg/UexuTaE"],
 a.dropdown-menu-item[href*="twitter.com/excalidraw"] {
-  display: none;
+  display: none !important;
 }
 
 /* Hide Excalidraw+ link on the welcome screen */
 a.welcome-screen-menu-item[href*="plus.excalidraw.com/plus"] {
-  display: none;
+  display: none !important;
 }

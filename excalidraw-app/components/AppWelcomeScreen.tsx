@@ -12,25 +12,9 @@ export const AppWelcomeScreen: React.FC<{
   const { t } = useI18n();
   let headingContent;
 
+  // Set the heading content without adding a link to Excalidraw+
   if (isExcalidrawPlusSignedUser) {
-    headingContent = t("welcomeScreen.app.center_heading_plus")
-      .split(/(Excalidraw\+)/)
-      .map((bit, idx) => {
-        if (bit === "Excalidraw+") {
-          return (
-            <a
-              style={{ pointerEvents: POINTER_EVENTS.inheritFromUI }}
-              href={`${
-                import.meta.env.VITE_APP_PLUS_APP
-              }?utm_source=excalidraw&utm_medium=app&utm_content=welcomeScreenSignedInUser`}
-              key={idx}
-            >
-              Excalidraw+
-            </a>
-          );
-        }
-        return bit;
-      });
+    headingContent = t("welcomeScreen.app.center_heading_plus");
   } else {
     headingContent = t("welcomeScreen.app.center_heading");
   }
@@ -43,7 +27,7 @@ export const AppWelcomeScreen: React.FC<{
       <WelcomeScreen.Hints.ToolbarHint />
       <WelcomeScreen.Hints.HelpHint />
       <WelcomeScreen.Center>
-        {/* <WelcomeScreen.Center.Logo /> */}
+        <div style={{ fontSize: "1.5em", marginBottom: "1em" }}>Abtiq QLab</div>
         <WelcomeScreen.Center.Heading>
           {headingContent}
         </WelcomeScreen.Center.Heading>
@@ -55,15 +39,7 @@ export const AppWelcomeScreen: React.FC<{
               onSelect={() => props.setCollabDialogShown(true)}
             />
           )}
-          {!isExcalidrawPlusSignedUser && (
-            <WelcomeScreen.Center.MenuItemLink
-              href={`${
-                import.meta.env.VITE_APP_PLUS_LP
-              }`}
-              shortcut={null}
-              icon={PlusPromoIcon}>
-            </WelcomeScreen.Center.MenuItemLink>
-          )}
+          {/* The Excalidraw+ menu item has been removed. */}
         </WelcomeScreen.Center.Menu>
       </WelcomeScreen.Center>
     </WelcomeScreen>

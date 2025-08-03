@@ -186,53 +186,16 @@
           user-select: auto;
         }
       }
-
-      #login-message {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        font-family: sans-serif;
-        font-size: 1.5em;
-      }
     </style>
   </head>
 
   <body>
     <noscript> You need to enable JavaScript to run this app. </noscript>
     <header>
-      <h1 class="visually-hidden">Excalidraw</h1>
+      <h1 class="visually-hidden">Abtiq QLab</h1>
     </header>
-    <div id="root" style="display: none;"></div>
-    <div id="login-message">
-      <p>Please <a href="https://go.abtiq.com/login">login</a> first.</p>
-    </div>
-
-    <script>
-      function isMoodleLoggedIn() {
-        // This function checks for a Moodle session cookie in the browser.
-        // NOTE: This method will only work if the Excalidraw instance is hosted
-        // on the same domain as your Moodle instance (go.abtiq.com) and the
-        // cookie is not set to HttpOnly.
-        // Replace 'MoodleSession' with the actual name of your Moodle session cookie if it's different.
-        const isLoggedIn = document.cookie.split(';').some((item) => item.trim().startsWith('MoodleSession='));
-        
-        if (!isLoggedIn) {
-            console.log("Moodle session cookie not found. User is not logged in.");
-        }
-
-        return isLoggedIn;
-      }
-
-      if (isMoodleLoggedIn()) {
-        document.getElementById("login-message").style.display = "none";
-        document.getElementById("root").style.display = "block";
-        const script = document.createElement("script");
-        script.type = "module";
-        script.src = "/src/index.tsx";
-        document.body.appendChild(script);
-      }
-    </script>
+    <div id="root"></div>
+    <script type="module" src="/src/index.tsx"></script>
     
     <% if ("%VITE_APP_DEV_DISABLE_LIVE_RELOAD%" !== 'true') { %>
     <!-- 100% privacy friendly analytics -->

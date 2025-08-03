@@ -209,40 +209,29 @@
     </div>
 
     <script>
-      async function isMoodleLoggedIn() {
-        try {
-          // This endpoint generates a token if the user has an active session.
-          // The 'moodle_mobile_app' service is a standard Moodle service.
-          const response = await fetch('https://go.abtiq.com/login/token.php?service=moodle_mobile_app', {
-            method: 'GET',
-            credentials: 'include', // This is crucial to send session cookies.
-          });
-
-          if (response.ok) {
-            const data = await response.json();
-            // If a token is returned, the user is logged in.
-            if (data && data.token) {
-              return true;
-            }
-          }
-          // If the response is not ok or doesn't contain a token, the user is not logged in.
-          return false;
-        } catch (error) {
-          console.error('Error checking Moodle login status:', error);
-          return false;
+      function isMoodleLoggedIn() {
+        // This function checks for a Moodle session cookie in the browser.
+        // NOTE: This method will only work if the Excalidraw instance is hosted
+        // on the same domain as your Moodle instance (go.abtiq.com) and the
+        // cookie is not set to HttpOnly.
+        // Replace 'MoodleSession' with the actual name of your Moodle session cookie if it's different.
+        const isLoggedIn = document.cookie.split(';').some((item) => item.trim().startsWith('MoodleSession='));
+        
+        if (!isLoggedIn) {
+            console.log("Moodle session cookie not found. User is not logged in.");
         }
+
+        return isLoggedIn;
       }
 
-      (async () => {
-        if (await isMoodleLoggedIn()) {
-          document.getElementById("login-message").style.display = "none";
-          document.getElementById("root").style.display = "block";
-          const script = document.createElement("script");
-          script.type = "module";
-          script.src = "/src/index.tsx";
-          document.body.appendChild(script);
-        }
-      })();
+      if (isMoodleLoggedIn()) {
+        document.getElementById("login-message").style.display = "none";
+        document.getElementById("root").style.display = "block";
+        const script = document.createElement("script");
+        script.type = "module";
+        script.src = "/src/index.tsx";
+        document.body.appendChild(script);
+      }
     </script>
     
     <% if ("%VITE_APP_DEV_DISABLE_LIVE_RELOAD%" !== 'true') { %>

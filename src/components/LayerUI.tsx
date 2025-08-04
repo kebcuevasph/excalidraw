@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import React from "react";
 import { ActionManager } from "../actions/manager";
-import { CLASSES, DEFAULT_SIDEBAR, LIBRARY_SIDEBAR_WIDTH } from "../constants";
+import { CLASSES, LIBRARY_SIDEBAR_WIDTH } from "../constants";
 import { showSelectedShapeActions } from "../element";
 import { NonDeletedExcalidrawElement } from "../element/types";
 import { Language, t } from "../i18n";
@@ -46,7 +46,6 @@ import { HandButton } from "./HandButton";
 import { isHandToolActive } from "../appState";
 import { TunnelsContext, useInitializeTunnels } from "../context/tunnels";
 import { UIAppStateContext } from "../context/ui-appState";
-import { DefaultSidebar } from "./DefaultSidebar";
 import { EyeDropper, activeEyeDropperAtom } from "./EyeDropper";
 
 import "./LayerUI.scss";
@@ -318,30 +317,9 @@ const LayerUI = ({
           >
             <UserList collaborators={appState.collaborators} />
             {renderTopRightUI?.(device.editor.isMobile, appState)}
-            {!appState.viewModeEnabled &&
-              // hide button when sidebar docked
-              (!isSidebarDocked ||
-                appState.openSidebar?.name !== DEFAULT_SIDEBAR.name) && (
-                <tunnels.DefaultSidebarTriggerTunnel.Out />
-              )}
           </div>
         </div>
       </FixedSideContainer>
-    );
-  };
-
-  const renderSidebars = () => {
-    return (
-      <DefaultSidebar
-        __fallback
-        onDock={(docked) => {
-          trackEvent(
-            "sidebar",
-            `toggleDock (${docked ? "dock" : "undock"})`,
-            `(${device.editor.isMobile ? "mobile" : "desktop"})`,
-          );
-        }}
-      />
     );
   };
 
@@ -357,15 +335,6 @@ const LayerUI = ({
           tunneled away. We only render tunneled components that actually
         have defaults when host do not render anything. */}
       <DefaultMainMenu UIOptions={UIOptions} />
-      <button
-        className="sidebar-trigger"
-        title="Account"
-        onClick={() => {
-          window.location.href = "https://go.abtiq.com";
-        }}
-      >
-        Account
-      </button>
       <DefaultOverwriteConfirmDialog />
       {/* ------------------------------------------------------------------ */}
 
@@ -459,7 +428,7 @@ const LayerUI = ({
           onPenModeToggle={onPenModeToggle}
           renderTopRightUI={renderTopRightUI}
           renderCustomStats={renderCustomStats}
-          renderSidebars={renderSidebars}
+          renderSidebars={() => null}
           device={device}
           renderWelcomeScreen={renderWelcomeScreen}
           UIOptions={UIOptions}
@@ -509,7 +478,6 @@ const LayerUI = ({
               </button>
             )}
           </div>
-          {renderSidebars()}
         </>
       )}
     </>

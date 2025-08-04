@@ -1,118 +1,57 @@
-import clsx from "clsx";
-import { DEFAULT_SIDEBAR, LIBRARY_SIDEBAR_TAB } from "../constants";
-import { useTunnels } from "../context/tunnels";
-import { useUIAppState } from "../context/ui-appState";
+import React from "react";
 import { t } from "../i18n";
-import { MarkOptional, Merge } from "../utility-types";
-import { composeEventHandlers } from "../utils";
-import { useExcalidrawSetAppState } from "./App";
-import { withInternalFallback } from "./hoc/withInternalFallback";
-import { LibraryMenu } from "./LibraryMenu";
-import { SidebarProps, SidebarTriggerProps } from "./Sidebar/common";
-import { Sidebar } from "./Sidebar/Sidebar";
 
-const DefaultSidebarTrigger = withInternalFallback(
-  "DefaultSidebarTrigger",
-  (
-    props: Omit<SidebarTriggerProps, "name"> &
-      React.HTMLAttributes<HTMLDivElement>,
-  ) => {
-    const { DefaultSidebarTriggerTunnel } = useTunnels();
-    return (
-      <DefaultSidebarTriggerTunnel.In>
-        <Sidebar.Trigger
-          {...props}
-          className="default-sidebar-trigger"
-          name={DEFAULT_SIDEBAR.name}
-        />
-      </DefaultSidebarTriggerTunnel.In>
-    );
-  },
+// Back Arrow Icon SVG
+const backIcon = (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M19 12H5M12 19l-7-7 7-7"/>
+  </svg>
 );
-DefaultSidebarTrigger.displayName = "DefaultSidebarTrigger";
 
-const DefaultTabTriggers = ({
-  children,
-  ...rest
-}: { children: React.ReactNode } & React.HTMLAttributes<HTMLDivElement>) => {
-  const { DefaultSidebarTabTriggersTunnel } = useTunnels();
-  return (
-    <DefaultSidebarTabTriggersTunnel.In>
-      <Sidebar.TabTriggers {...rest}>{children}</Sidebar.TabTriggers>
-    </DefaultSidebarTabTriggersTunnel.In>
-  );
-};
-DefaultTabTriggers.displayName = "DefaultTabTriggers";
-
-export const DefaultSidebar = Object.assign(
-  withInternalFallback(
-    "DefaultSidebar",
-    ({
-      children,
-      className,
-      onDock,
-      docked,
-      ...rest
-    }: Merge<
-      MarkOptional<Omit<SidebarProps, "name">, "children">,
-      {
-        /** pass `false` to disable docking */
-        onDock?: SidebarProps["onDock"] | false;
-      }
-    >) => {
-      const appState = useUIAppState();
-      const setAppState = useExcalidrawSetAppState();
-
-      const { DefaultSidebarTabTriggersTunnel } = useTunnels();
-
+export const DefaultSidebar = {
+  // The main component is now just the button. The original sidebar logic is removed.
+  ...(() => {
+    const BackToPortalButton = () => {
       return (
-        <Sidebar
-          {...rest}
-          name="default"
-          key="default"
-          className={clsx("default-sidebar", className)}
-          docked={docked ?? appState.defaultSidebarDockedPreference}
-          onDock={
-            // `onDock=false` disables docking.
-            // if `docked` passed, but no onDock passed, disable manual docking.
-            onDock === false || (!onDock && docked != null)
-              ? undefined
-              : // compose to allow the host app to listen on default behavior
-                composeEventHandlers(onDock, (docked) => {
-                  setAppState({ defaultSidebarDockedPreference: docked });
-                })
-          }
+        <div
+          style={{
+            position: "absolute",
+            top: "0.625rem",
+            left: "0.625rem",
+            zIndex: 1,
+          }}
         >
-          <Sidebar.Tabs>
-            <Sidebar.Header>
-              {rest.__fallback && (
-                <div
-                  style={{
-                    color: "var(--color-primary)",
-                    fontSize: "1.2em",
-                    fontWeight: "bold",
-                    textOverflow: "ellipsis",
-                    overflow: "hidden",
-                    whiteSpace: "nowrap",
-                    paddingRight: "1em",
-                  }}
-                >
-                  {t("toolBar.library")}
-                </div>
-              )}
-              <DefaultSidebarTabTriggersTunnel.Out />
-            </Sidebar.Header>
-            <Sidebar.Tab tab={LIBRARY_SIDEBAR_TAB}>
-              <LibraryMenu />
-            </Sidebar.Tab>
-            {children}
-          </Sidebar.Tabs>
-        </Sidebar>
+          <button
+            className="sidebar-trigger"
+            title="Back to Portal"
+            aria-label="Back to Portal"
+            onClick={() => {
+              window.location.href = "https://go.abtiq.com";
+            }}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '2.5rem',
+              height: '2.5rem',
+              borderRadius: '50%',
+              backgroundColor: 'var(--island-bg-color)',
+              border: '1px solid var(--default-border-color)',
+              cursor: 'pointer',
+              boxShadow: 'var(--card-box-shadow)',
+            }}
+          >
+            <div className="sidebar-trigger__icon" aria-hidden="true" style={{ width: '1.25rem', height: '1.25rem' }}>
+              {backIcon}
+            </div>
+          </button>
+        </div>
       );
-    },
-  ),
-  {
-    Trigger: DefaultSidebarTrigger,
-    TabTriggers: DefaultTabTriggers,
-  },
-);
+    };
+    BackToPortalButton.displayName = "BackToPortalButton";
+    return BackToPortalButton;
+  })(),
+  // These are kept for API compatibility but are now no-ops.
+  Trigger: () => null,
+  TabTriggers: () => null,
+};

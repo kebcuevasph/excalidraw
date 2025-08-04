@@ -405,8 +405,8 @@
     }
   },
   "encrypted": {
-    "tooltip": "Your drawings are end-to-end encrypted so Excalidraw's servers will never see them.",
-    "link": "Blog post on end-to-end encryption in Excalidraw"
+    "tooltip": "Your drawings are end-to-end encrypted so our servers will never see them.",
+    "link": "Blog post on end-to-end encryption in Abtiq"
   },
   "stats": {
     "angle": "Angle",
@@ -505,7 +505,7 @@
     }
   },
   "mermaid": {
-    "title": "Mermaid to Excalidraw",
+    "title": "Mermaid to QLab",
     "button": "Insert",
     "description": "Currently only <flowchartLink>Flowcharts</flowchartLink> and <sequenceLink>Sequence Diagrams</sequenceLink> are supported. The other types will be rendered as image in Excalidraw.",
     "syntax": "Mermaid Syntax",

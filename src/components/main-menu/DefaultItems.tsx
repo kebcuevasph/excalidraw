@@ -247,8 +247,8 @@ const saveToDisk = async (
         // 1. Changed `fileName` to `name`
         // 2. Added the `extension` property
         name: sceneName,
-        extension: "excalidraw",
-        description: "Excalidraw file",
+        extension: "qlab",
+        description: "Qlab file",
       },
     );
   } catch (error: any) {

@@ -69,7 +69,7 @@
     "layers": "Layers",
     "actions": "Actions",
     "language": "Language",
-    "liveCollaboration": "Live collaboration...",
+    "liveCollaboration": "Live collaboration",
     "duplicateSelection": "Duplicate",
     "untitled": "Untitled",
     "name": "Name",
@@ -133,15 +133,15 @@
     "eyeDropper": "Pick color from canvas"
   },
   "library": {
-    "noItems": "No items added yet...",
+    "noItems": "No items added yet.",
     "hint_emptyLibrary": "Select an item on canvas to add it here, or install a library from the public repository, below.",
     "hint_emptyPrivateLibrary": "Select an item on canvas to add it here."
   },
   "buttons": {
     "clearReset": "Reset the canvas",
     "exportJSON": "Export to file",
-    "exportImage": "Export image...",
-    "export": "Save to...",
+    "exportImage": "Export image",
+    "export": "Save",
     "copyToClipboard": "Copy to clipboard",
     "save": "Save to current file",
     "saveAs": "Save as",
@@ -200,7 +200,7 @@
   },
   "errors": {
     "unsupportedFileType": "Unsupported file type.",
-    "imageInsertError": "Couldn't insert image. Try again later...",
+    "imageInsertError": "Couldn't insert image. Try again later.",
     "fileTooBig": "File is too big. Maximum allowed size is {{maxSize}}.",
     "svgImageInsertError": "Couldn't insert SVG image. The SVG markup looks invalid.",
     "failedToFetchImage": "Failed to fetch image.",
@@ -310,7 +310,7 @@
     "link_button": "Export to Link",
     "excalidrawplus_description": "Save the scene to your Excalidraw+ workspace.",
     "excalidrawplus_button": "Export",
-    "excalidrawplus_exportError": "Couldn't export to Excalidraw+ at this moment..."
+    "excalidrawplus_exportError": "Couldn't export to Excalidraw+ at this moment."
   },
   "helpDialog": {
     "blog": "Read our blog",

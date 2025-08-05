@@ -1,3 +1,9 @@
+import { serializeAsJSON } from "../../data/json";
+import { fileSave } from "../../data/filesystem";
+
+import { NonDeletedExcalidrawElement } from "../../element/types";
+import { AppState, BinaryFiles } from "../../types";
+
 import { getShortcutFromShortcutName } from "../../actions/shortcuts";
 import { useI18n } from "../../i18n";
 import {
@@ -5,6 +11,8 @@ import {
   useExcalidrawActionManager,
   useExcalidrawElements,
   useAppProps,
+  useApp,
+  useExcalidrawAppState // Make sure this is added
 } from "../App";
 import {
   ExportIcon,
@@ -223,19 +231,52 @@ export const ChangeCanvasBackground = () => {
 };
 ChangeCanvasBackground.displayName = "ChangeCanvasBackground";
 
+const saveToDisk = async (
+  elements: readonly NonDeletedExcalidrawElement[],
+  appState: AppState,
+  files: BinaryFiles,
+) => {
+  // FIX 1: Use the drawing's name, or default to "Untitled" if it's not set.
+  // This prevents creating a file named ".excalidraw".
+  const sceneName = appState.name || "Untitled";
+
+  try {
+    const json = serializeAsJSON(elements, appState, files, "local");
+    await fileSave(
+      new Blob([json], { type: "application/json" }),
+      {
+        // Use the new `sceneName` variable here.
+        fileName: `${sceneName}.excalidraw`,
+        description: "Excalidraw file",
+      },
+    );
+  } catch (error: any) {
+    // No need to crash the app if the user cancels the save dialog.
+    if (error?.name !== "AbortError") {
+      console.error(error);
+    }
+  }
+};
+
 export const Export = () => {
   const { t } = useI18n();
-  const setAppState = useExcalidrawSetAppState();
+  const elements = useExcalidrawElements();
+  const appState = useExcalidrawAppState();
+  const { files } = useApp();
+
   return (
     <DropdownMenuItem
       icon={ExportIcon}
       onSelect={() => {
-        setAppState({ openDialog: "jsonExport" });
+        // FIX 2: Add `void` to tell the linter we are intentionally
+        // not waiting for the save to complete, which removes the underline.
+        void saveToDisk(elements, appState, files);
       }}
-      data-testid="json-export-button"
-      aria-label={t("buttons.export")}
+      data-testid="save-to-disk-button"
+      aria-label={t("buttons.save")}
     >
-      {t("buttons.export")}
+      {/* The text is now "Save to Disk" */}
+      Save to Disk
     </DropdownMenuItem>
   );
 };

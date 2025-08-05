@@ -236,8 +236,6 @@ const saveToDisk = async (
   appState: AppState,
   files: BinaryFiles,
 ) => {
-  // FIX 1: Use the drawing's name, or default to "Untitled" if it's not set.
-  // This prevents creating a file named ".excalidraw".
   const sceneName = appState.name || "Untitled";
 
   try {
@@ -245,13 +243,15 @@ const saveToDisk = async (
     await fileSave(
       new Blob([json], { type: "application/json" }),
       {
-        // Use the new `sceneName` variable here.
-        fileName: `${sceneName}.excalidraw`,
+        // CORRECTED:
+        // 1. Changed `fileName` to `name`
+        // 2. Added the `extension` property
+        name: sceneName,
+        extension: "excalidraw",
         description: "Excalidraw file",
       },
     );
   } catch (error: any) {
-    // No need to crash the app if the user cancels the save dialog.
     if (error?.name !== "AbortError") {
       console.error(error);
     }

@@ -276,7 +276,7 @@ export const Export = () => {
       aria-label={t("buttons.save")}
     >
       {/* The text is now "Save to Disk" */}
-      Save to Disk
+      Save
     </DropdownMenuItem>
   );
 };

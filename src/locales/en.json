@@ -140,7 +140,7 @@
   "buttons": {
     "clearReset": "Reset the canvas",
     "exportJSON": "Export to file",
-    "exportImage": "Export image",
+    "exportImage": "Export",
     "export": "Save",
     "copyToClipboard": "Copy to clipboard",
     "save": "Save to current file",
@@ -381,7 +381,7 @@
     "removeItemsFromLib": "Remove selected items from library"
   },
   "imageExportDialog": {
-    "header": "Export image",
+    "header": "Export",
     "label": {
       "withBackground": "Background",
       "onlySelected": "Only selected",
